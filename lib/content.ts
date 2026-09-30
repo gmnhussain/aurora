@@ -91,30 +91,26 @@ export const PROJECTS: { title: string; meta: string; href: string; img: string 
 
 export type ServiceIcon = "browsers" | "database" | "mobile" | "figma";
 
-export const SERVICES: { title: [string, string]; description: string; icon: ServiceIcon; top: number }[] = [
+export const SERVICES: { title: string; description: string; icon: ServiceIcon }[] = [
   {
-    title: ["Front-end", "development"],
-    description: "React, Next.js, JavaScript and Tailwind CSS, with performance treated as a feature rather than an afterthought.",
+    title: "Front-end development",
+    description: "React, Next.js and Tailwind CSS, with performance treated as a feature.",
     icon: "browsers",
-    top: 84,
   },
   {
-    title: ["Back-end", "solutions"],
-    description: "Node.js and Express APIs on SQL or NoSQL databases, from schema design to deployment.",
+    title: "Back-end solutions",
+    description: "Node.js and Express APIs on SQL or NoSQL, from schema to deploy.",
     icon: "database",
-    top: 108,
   },
   {
-    title: ["Mobile app", "development"],
-    description: "Cross-platform iOS and Android apps with Ionic and Capacitor, sharing one codebase with the web.",
+    title: "Mobile apps",
+    description: "Cross-platform iOS and Android with Ionic and Capacitor.",
     icon: "mobile",
-    top: 132,
   },
   {
-    title: ["Design", "to HTML"],
-    description: "Figma, XD or PSD turned into pixel-accurate, responsive, SEO-friendly markup.",
+    title: "Design to HTML",
+    description: "Figma, XD or PSD into pixel-accurate, responsive markup.",
     icon: "figma",
-    top: 156,
   },
 ];
 

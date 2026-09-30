@@ -1133,90 +1133,116 @@ html.has-cursor * {
 
 /* ─── What I do ───────────────────────────────────────────────────────── */
 .services {
-  padding: clamp(56px, 8cqi, 104px) 0 20vh;
+  padding: clamp(56px, 8cqi, 104px) 0;
 }
-.services-lead {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: clamp(22px, 2.8cqi, 34px);
-  line-height: 1.3;
-  letter-spacing: -0.015em;
-  max-width: 30ch;
-  margin: 18px 0 32px;
+.svc-list {
+  margin-top: clamp(28px, 4cqi, 44px);
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
 }
-.cards {
-  display: flex;
-  flex-direction: column;
-}
-.card {
-  position: sticky;
-  height: min(58vh, 480px);
-  margin-bottom: 28px;
-  transform-origin: 50% 0;
-  border-radius: var(--radius-lg);
-  background:
-    radial-gradient(600px 400px at 100% 100%, color-mix(in srgb, var(--color-accent-900) 80%, transparent), transparent 70%),
-    linear-gradient(155deg, var(--color-surface), var(--color-bg) 90%);
-  border: 1px solid var(--color-divider);
-  box-shadow: var(--shadow-lg);
-  display: flex;
+.svc {
+  position: relative;
   overflow: hidden;
+  cursor: pointer;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
 }
-.card:last-child {
-  margin-bottom: 0;
+.svc-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--color-accent-900) 95%, transparent),
+    color-mix(in srgb, var(--color-accent) 18%, transparent)
+  );
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+  transition: transform 0.6s var(--ease-wipe);
 }
-.card-mark {
-  flex: none;
-  height: 0;
+.svc.is-active .svc-fill {
+  transform: scaleY(1);
 }
-.card-body {
-  flex: 1 1 0;
-  min-width: 0;
-  padding: clamp(22px, 4cqi, 48px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-}
-.card-top {
-  display: flex;
-  justify-content: space-between;
+.svc-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 12px clamp(24px, 4cqi, 56px);
   align-items: center;
-  gap: 12px;
+  padding: clamp(24px, 3.4cqi, 40px) 0;
+  transition: padding 0.6s var(--ease-reveal);
 }
-.card-n {
+.svc.is-active .svc-grid {
+  padding-inline: clamp(0px, 2.4cqi, 24px);
+}
+.svc-head {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(14px, 2.4cqi, 28px);
+  min-width: 0;
+}
+.svc-n {
   font-size: 14px;
   color: var(--color-accent);
 }
-.card-title {
+.svc-title {
   margin: 0;
-  font-size: clamp(34px, 5.6cqi, 72px);
+  font-family: var(--font-heading);
   font-weight: 500;
+  font-size: clamp(30px, 4.8cqi, 64px);
   letter-spacing: -0.045em;
-  line-height: 0.98;
+  line-height: 1;
+  transition:
+    color 0.4s,
+    translate 0.6s var(--ease-reveal);
 }
-.card p {
-  margin-top: 14px;
-  max-width: 42ch;
+.svc.is-active .svc-title {
+  translate: 12px 0;
+}
+.svc-list.has-active .svc:not(.is-active) .svc-title {
+  color: color-mix(in srgb, var(--color-text) 38%, transparent);
+}
+.svc-side {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.svc-side p {
+  max-width: 40ch;
   font-size: 15.5px;
   line-height: 1.6;
-  color: color-mix(in srgb, var(--color-text) 74%, transparent);
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+  transition: color 0.4s;
 }
-.card-icon {
-  flex: 0 0 36%;
+.svc.is-active .svc-side p {
+  color: var(--color-text);
+}
+.svc-icon {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid var(--color-divider);
-  font-size: clamp(96px, 12cqi, 160px);
-  color: color-mix(in srgb, var(--color-accent) 22%, transparent);
-  filter: drop-shadow(0 0 30px color-mix(in srgb, var(--color-accent) 45%, transparent));
+  border: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  font-size: 22px;
+  color: var(--color-accent-300);
+  transition:
+    rotate 0.6s var(--ease-reveal),
+    border-color 0.4s;
 }
-/* Outlined glyph, like the icon font with a 1px text stroke. */
-.card-icon svg * {
-  stroke: var(--color-accent);
-  stroke-width: 1px;
-  vector-effect: non-scaling-stroke;
+.svc.is-active .svc-icon {
+  rotate: -45deg;
+  border-color: var(--color-accent);
+}
+.svc-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  font-size: 14px;
+  color: color-mix(in srgb, var(--color-text) 64%, transparent);
 }
 
 /* ─── Contact ─────────────────────────────────────────────────────────── */
@@ -1586,8 +1612,7 @@ html.has-cursor .dot {
 /* ─── Phone (≤ 720px) ─────────────────────────────────────────────────── */
 @media (max-width: 720px) {
   .header-label,
-  .hero-cta-wrap,
-  .card-icon {
+  .hero-cta-wrap {
     display: none;
   }
   .proj-img {
@@ -1610,7 +1635,11 @@ html.has-cursor .dot {
   .job-body,
   .job-body-in,
   .job-plus,
-  .job-dash {
+  .job-dash,
+  .svc-fill,
+  .svc-grid,
+  .svc-title,
+  .svc-icon {
     transition: none;
   }
   .about-text [data-w] {

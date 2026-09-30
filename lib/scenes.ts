@@ -133,28 +133,6 @@ export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: 
     });
   }
 
-  // ── Stacking cards: as the next card approaches its sticky top, the previous one
-  // scales to .94 and dims. Markers sit at each next card's un-stuck position.
-  const cards = qa("[data-card]");
-  const marks = qa("[data-cardmark]");
-  cards.forEach((c, i) => {
-    const next = cards[i + 1], mark = marks[i];
-    if (!next || !mark) return;
-    const target = Number(next.dataset.top);
-    const set = (p: number) => {
-      c.style.transform = `scale(${1 - 0.06 * p})`;
-      c.style.filter = `brightness(${1 - 0.4 * p})`;
-    };
-    ScrollTrigger.create({
-      trigger: mark,
-      start: () => `top ${target + H() * 0.7}px`,
-      end: `top ${target}px`,
-      invalidateOnRefresh: true,
-      onUpdate: (s) => set(s.progress),
-      onRefresh: (s) => set(s.progress),
-    });
-  });
-
   // ── Education ruler: p = clamp((0.85H − top) / 0.45H); year i lights once i/4 ≤ p
   const ruler = q("edruler"), rulerFill = q("edfill");
   if (ruler && rulerFill) {
