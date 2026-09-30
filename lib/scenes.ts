@@ -5,7 +5,8 @@ const docTop = (el: Element) => el.getBoundingClientRect().top + window.scrollY;
 
 /**
  * Every scroll-linked effect on the page. Call inside a gsap.context so a
- * single revert() tears it all down. Formulas mirror the prototype's update().
+ * single revert() tears it all down, including the returned cleanup.
+ * Formulas mirror the prototype's update().
  */
 export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: number) => void) {
   const { q, qa } = scoped(root);
@@ -42,14 +43,34 @@ export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: 
     onUpdate: (s) => pick(s.scroll()),
   });
 
-  // ── Hero: name lines drift apart, portrait rises (±scrollY × 0.4, 0.25 on phone)
-  const hero = q("sec-top");
+  // ── Hero: keep both name layers above the bottom row. --nb = row height + the
+  // hero's bottom padding; re-measured on resize, font load (refresh) and scroll.
+  const hero = q("sec-top"), hrow = q("hrow");
+  let ro: ResizeObserver | undefined;
+  if (hero && hrow) {
+    let nb = 0;
+    const fit = () => {
+      const v = hrow.offsetHeight + parseFloat(getComputedStyle(hero).paddingBottom || "0");
+      if (v > 20 && v !== nb) hero.style.setProperty("--nb", `${(nb = v)}px`);
+    };
+    fit();
+    ro = new ResizeObserver(fit);
+    ro.observe(hrow);
+    ro.observe(hero);
+    ScrollTrigger.create({ trigger: hero, start: "top top", end: "bottom top", onRefresh: fit, onUpdate: fit });
+  }
+
+  // ── Hero parallax: names drift apart (±scrollY × 0.4, 0.25 on phone), the portrait
+  // sinks and shrinks to .94, halo and aurora trail at 0.3 and 0.45.
   if (hero && !reduced) {
     const k = () => (isPhone() ? 0.25 : 0.4);
+    const h = () => hero.offsetHeight;
     const st = () => ({ trigger: hero, start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true });
-    gsap.to(q("line1"), { x: () => -k() * hero.offsetHeight, ease: "none", scrollTrigger: st() });
-    gsap.to(q("line2"), { x: () => k() * hero.offsetHeight, ease: "none", scrollTrigger: st() });
-    gsap.to(q("portrait"), { y: () => -0.18 * hero.offsetHeight, ease: "none", scrollTrigger: st() });
+    gsap.to(q("line1"), { x: () => -k() * h(), ease: "none", scrollTrigger: st() });
+    gsap.to(q("line2"), { x: () => k() * h(), ease: "none", scrollTrigger: st() });
+    gsap.to(q("portrait"), { y: () => 0.12 * h(), scale: 0.94, ease: "none", scrollTrigger: st() });
+    gsap.to(q("halo"), { y: () => 0.3 * h(), ease: "none", scrollTrigger: st() });
+    gsap.to(q("aurora"), { y: () => 0.45 * h(), ease: "none", scrollTrigger: st() });
   }
 
   // ── About: words light up in sequence through the pinned range
@@ -217,6 +238,8 @@ export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: 
       });
     });
   }
+
+  return () => ro?.disconnect();
 }
 
 /** Document scroll position that puts a section in view (as the prototype's go()). */

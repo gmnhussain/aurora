@@ -14,6 +14,7 @@
   --color-accent-100: #f5f4ff;
   --color-accent-200: #e7e5fe;
   --color-accent-300: #d2cefd;
+  --color-accent-700: #5d5294;
   --color-accent-800: #423a6a;
   --color-accent-900: #2b2741;
 
@@ -210,6 +211,7 @@ html.has-cursor * {
 /* ─── Hero ────────────────────────────────────────────────────────────── */
 .hero {
   position: relative;
+  isolation: isolate;
   height: 100svh;
   min-height: 560px;
   display: flex;
@@ -218,30 +220,142 @@ html.has-cursor * {
   padding: 96px var(--gutter) clamp(24px, 4cqi, 40px);
   overflow: hidden;
 }
-.hero-portrait {
-  /* Centred with left/width rather than translate, so GSAP owns transform (parallax y). */
-  --pw: clamp(200px, 24cqi, 320px);
-  position: absolute;
-  left: calc(50% - var(--pw) / 2);
-  top: clamp(72px, 12vh, 120px);
-  width: var(--pw);
-  aspect-ratio: 3 / 4;
-  z-index: 1;
-}
-.hero-portrait-in {
+
+/* Aurora: drifting blobs, cursor spotlight, bottom fade and film grain. The
+   outer layer takes the parallax, the inner one the intro fade. */
+.hero-aurora {
   position: absolute;
   inset: 0;
-  border-radius: 8px;
+  z-index: -2;
+  pointer-events: none;
+}
+.hero-aurora-in {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
 }
-.hero-portrait-in img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  animation: var(--drift) ease-in-out infinite;
 }
+.hero-blob-0 {
+  --drift: drift-0 26s;
+  left: 30%;
+  top: -10%;
+  width: 70cqi;
+  height: 70cqi;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-accent) 55%, transparent), transparent 72%);
+  filter: blur(40px);
+  opacity: 0.55;
+}
+.hero-blob-1 {
+  --drift: drift-1 32s;
+  left: -20%;
+  top: 30%;
+  width: 60cqi;
+  height: 60cqi;
+  background: radial-gradient(closest-side, var(--color-section-glow), transparent 72%);
+  filter: blur(50px);
+  opacity: 0.8;
+}
+.hero-blob-2 {
+  --drift: drift-2 29s;
+  right: -15%;
+  top: 40%;
+  width: 55cqi;
+  height: 55cqi;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-accent-700) 90%, transparent), transparent 72%);
+  filter: blur(50px);
+  opacity: 0.7;
+}
+@keyframes drift-0 {
+  33% { translate: -12% 10%; scale: 1.06; }
+  66% { translate: 8% -6%; scale: 1.06; }
+}
+@keyframes drift-1 {
+  33% { translate: 14% -8%; scale: 1.12; }
+  66% { translate: -6% 12%; scale: 1.12; }
+}
+@keyframes drift-2 {
+  33% { translate: -10% -12%; scale: 1.18; }
+  66% { translate: 6% 8%; scale: 1.18; }
+}
+.hero-spot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 620px;
+  height: 620px;
+  margin: -310px 0 0 -310px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-accent-300) 16%, transparent), transparent);
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.hero-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 55%, var(--color-bg) 100%);
+}
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Halo behind the head: radial fill and two counter-rotating rings. */
+.hero-halo {
+  --hw: clamp(280px, 36cqi, 500px);
+  position: absolute;
+  left: calc(50% - var(--hw) / 2);
+  top: clamp(56px, 9vh, 96px);
+  width: var(--hw);
+  aspect-ratio: 1;
+  z-index: -1;
+  pointer-events: none;
+}
+.hero-halo-in,
+.hero-halo-fill,
+.hero-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+.hero-halo-fill {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-accent) 42%, transparent),
+    color-mix(in srgb, var(--color-accent-900) 60%, transparent) 60%,
+    transparent 72%
+  );
+}
+.hero-ring-a {
+  inset: 6%;
+  border: 1px solid color-mix(in srgb, var(--color-accent-300) 28%, transparent);
+  border-top-color: var(--color-accent-200);
+  box-shadow: 0 -6px 24px -10px var(--color-accent);
+  animation: spin 18s linear infinite;
+}
+.hero-ring-b {
+  inset: -4%;
+  border: 1px dashed color-mix(in srgb, var(--color-text) 12%, transparent);
+  animation: spin 60s linear infinite reverse;
+}
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* Name layers: absolutely placed so they always clear the bottom row. */
 .hero-name {
-  position: relative;
-  z-index: 0;
+  position: absolute;
+  left: var(--gutter);
+  right: 0;
+  bottom: calc(var(--nb, 220px) + clamp(8px, 2vh, 24px));
   margin: 0 0 0 -0.06em;
   font-family: var(--font-heading);
   font-weight: 500;
@@ -249,13 +363,31 @@ html.has-cursor * {
   line-height: 0.86;
   letter-spacing: -0.055em;
   white-space: nowrap;
-  text-shadow: 0 0 90px color-mix(in srgb, var(--color-accent) 30%, transparent);
+  pointer-events: none;
+}
+.hero-name-1 {
+  z-index: 0;
+  translate: 0 -0.86em;
+}
+.hero-name-1 [data-in] {
+  background: linear-gradient(180deg, var(--color-text) 30%, color-mix(in srgb, var(--color-accent-300) 70%, transparent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-name-2 {
+  z-index: 2;
+}
+.hero-name-2 .hero-line {
+  padding-left: clamp(24px, 22cqi, 340px);
+}
+.hero-name-2 [data-in] {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--color-text) 85%, transparent);
+  text-shadow: 0 0 60px color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 .hero-line {
   display: block;
-}
-.hero-line + .hero-line {
-  padding-left: clamp(24px, 22cqi, 340px);
 }
 .hero-mask {
   display: block;
@@ -265,9 +397,47 @@ html.has-cursor * {
 .hero-mask > span {
   display: block;
 }
+
+/* Portrait: outer layer takes the parallax, inner the intro, tilt the cursor. */
+.hero-portrait {
+  /* min(84vh, hero height − 64px); the hero is max(100svh, 560px) tall. Absolute
+     so it also resolves inside `left`. */
+  --ph: min(84svh, calc(max(100svh, 560px) - 64px));
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - var(--ph) * 3 / 8);
+  height: var(--ph);
+  aspect-ratio: 3 / 4;
+  z-index: 1;
+  -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 98%);
+  mask-image: linear-gradient(to bottom, black 62%, transparent 98%);
+}
+.hero-portrait-in,
+.hero-portrait-tilt,
+.hero-portrait-tint {
+  position: absolute;
+  inset: 0;
+}
+.hero-portrait-tilt {
+  filter: grayscale(1) contrast(1.12) brightness(1.04);
+  transition: transform 0.6s var(--ease-reveal);
+  will-change: transform;
+}
+.hero-portrait-tilt img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Duotone: the tint's hue and saturation over the greyscale photo's luminance. */
+.hero-portrait-tint {
+  pointer-events: none;
+  mix-blend-mode: color;
+  background: linear-gradient(160deg, var(--color-accent-300), var(--color-accent-700));
+}
+
 .hero-foot {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -1440,7 +1610,9 @@ html.has-cursor .dot {
   }
   .marquee-track,
   .scroll-cue-track::after,
-  .pulse {
+  .pulse,
+  .hero-blob,
+  .hero-ring {
     animation: none;
   }
   .about-text [data-w] {

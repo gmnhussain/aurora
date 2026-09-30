@@ -1,15 +1,18 @@
-import { clamp, gsap, scoped } from "./motion";
+import { clamp, gsap, prefersReducedMotion, scoped } from "./motion";
 
 /**
  * Custom cursor (dot + lerping ring with labels), magnetic buttons, cursor-lit
- * cards and the floating project preview. Desktop with a fine pointer only.
- * Everything is written straight to styles from one ticker; no React state.
+ * cards, the hero spotlight and portrait tilt, and the floating project preview.
+ * Desktop with a fine pointer only. Everything is written straight to styles
+ * from one ticker; no React state.
  */
 export function attachPointer(root: HTMLElement) {
   const { q, qa } = scoped(root);
   const ring = q("ring"), ringLabel = q("ringLabel"), dot = q("dot"), preview = q("preview");
   if (!ring || !ringLabel || !dot) return () => {};
   const pimgs = qa("[data-pimg]");
+  const hero = q("sec-top"), aurora = q("aurora"), heroSpot = q("spot");
+  const tilt = prefersReducedMotion() ? null : q("ptilt");
 
   let mx = -100, my = -100, rx = -100, ry = -100, px = -100, py = -100;
   let rs = 32, pvOn = false;
@@ -29,6 +32,21 @@ export function attachPointer(root: HTMLElement) {
     ring.style.opacity = "1";
     dot.style.opacity = label ? "0" : "1";
     if (ringLabel.textContent !== label) ringLabel.textContent = label;
+
+    // Hero: spotlight follows the pointer; the portrait tilts toward it (nx, ny in −0.5…0.5).
+    if (hero && window.scrollY < hero.offsetHeight) {
+      if (aurora && heroSpot) {
+        const r = aurora.getBoundingClientRect();
+        heroSpot.style.opacity = "1";
+        heroSpot.style.transform = `translate(${mx - r.left}px, ${my - r.top}px)`;
+      }
+      if (tilt) {
+        const nx = mx / window.innerWidth - 0.5, ny = my / window.innerHeight - 0.5;
+        tilt.style.transform = `perspective(1200px) rotateY(${nx * 6}deg) rotateX(${-ny * 4}deg) translate(${nx * -14}px, ${ny * -8}px)`;
+      }
+    } else if (heroSpot) {
+      heroSpot.style.opacity = "0";
+    }
 
     const row = target?.closest<HTMLElement>("[data-proj]") ?? null;
     if (preview) {
@@ -72,7 +90,8 @@ export function attachPointer(root: HTMLElement) {
   };
 
   const onLeave = () => {
-    [ring, dot, preview].forEach((el) => el && (el.style.opacity = "0"));
+    [ring, dot, preview, heroSpot].forEach((el) => el && (el.style.opacity = "0"));
+    if (tilt) tilt.style.transform = "";
     pvOn = false;
     if (mag) {
       mag.style.transform = "";
