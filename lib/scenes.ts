@@ -60,6 +60,23 @@ export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: 
     ScrollTrigger.create({ trigger: hero, start: "top top", end: "bottom top", onRefresh: fit, onUpdate: fit });
   }
 
+  // ── Aurora drift: each blob loops through three waypoints. Web Animations rather
+  // than CSS so one ease-in-out spans the whole loop, as in the prototype; CSS
+  // would ease (and stall) between every pair of keyframes.
+  const DRIFT: [string[], number][] = [
+    [["0% 0%", "-12% 10%", "8% -6%"], 26000],
+    [["0% 0%", "14% -8%", "-6% 12%"], 32000],
+    [["0% 0%", "-10% -12%", "6% 8%"], 29000],
+  ];
+  const drifts = reduced
+    ? []
+    : qa("[data-blob]").map((b, i) => {
+        const [points, duration] = DRIFT[i];
+        const scale = String(1 + (i + 1) * 0.06);
+        const frames = [...points, points[0]].map((t) => ({ translate: t, scale: t === "0% 0%" ? "1" : scale }));
+        return b.animate(frames, { duration, iterations: Infinity, easing: "ease-in-out" });
+      });
+
   // ── Hero parallax: names drift apart (±scrollY × 0.4, 0.25 on phone), the portrait
   // sinks and shrinks to .94, halo and aurora trail at 0.3 and 0.45.
   if (hero && !reduced) {
@@ -197,7 +214,10 @@ export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: 
     });
   }
 
-  return () => ro?.disconnect();
+  return () => {
+    ro?.disconnect();
+    drifts.forEach((a) => a.cancel());
+  };
 }
 
 /** Document scroll position that puts a section in view (as the prototype's go()). */

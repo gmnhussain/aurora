@@ -237,10 +237,8 @@ html.has-cursor * {
 .hero-blob {
   position: absolute;
   border-radius: 50%;
-  animation: var(--drift) ease-in-out infinite;
 }
 .hero-blob-0 {
-  --drift: drift-0 26s;
   left: 30%;
   top: -10%;
   width: 70cqi;
@@ -250,7 +248,6 @@ html.has-cursor * {
   opacity: 0.55;
 }
 .hero-blob-1 {
-  --drift: drift-1 32s;
   left: -20%;
   top: 30%;
   width: 60cqi;
@@ -260,7 +257,6 @@ html.has-cursor * {
   opacity: 0.8;
 }
 .hero-blob-2 {
-  --drift: drift-2 29s;
   right: -15%;
   top: 40%;
   width: 55cqi;
@@ -268,18 +264,6 @@ html.has-cursor * {
   background: radial-gradient(closest-side, color-mix(in srgb, var(--color-accent-700) 90%, transparent), transparent 72%);
   filter: blur(50px);
   opacity: 0.7;
-}
-@keyframes drift-0 {
-  33% { translate: -12% 10%; scale: 1.06; }
-  66% { translate: 8% -6%; scale: 1.06; }
-}
-@keyframes drift-1 {
-  33% { translate: 14% -8%; scale: 1.12; }
-  66% { translate: -6% 12%; scale: 1.12; }
-}
-@keyframes drift-2 {
-  33% { translate: -10% -12%; scale: 1.18; }
-  66% { translate: 6% 8%; scale: 1.18; }
 }
 .hero-spot {
   position: absolute;
@@ -1628,7 +1612,6 @@ html.has-cursor .dot {
   .marquee-track,
   .scroll-cue-track::after,
   .pulse,
-  .hero-blob,
   .hero-ring {
     animation: none;
   }

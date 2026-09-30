@@ -10,9 +10,9 @@ export function Hero({ onContact }: { onContact: () => void }) {
     <section data-k="sec-top" className="hero">
       <div data-k="aurora" className="hero-aurora" aria-hidden="true">
         <div data-k="auroraIn" className="hero-aurora-in">
-          <div className="hero-blob hero-blob-0" />
-          <div className="hero-blob hero-blob-1" />
-          <div className="hero-blob hero-blob-2" />
+          <div data-blob="1" className="hero-blob hero-blob-0" />
+          <div data-blob="1" className="hero-blob hero-blob-1" />
+          <div data-blob="1" className="hero-blob hero-blob-2" />
           <div data-k="spot" className="hero-spot" />
           <div className="hero-fade" />
           <div className="hero-grain" />
