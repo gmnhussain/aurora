@@ -1,4 +1,13 @@
-import { ArrowUpRight, GraduationCap, Notebook } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { SplitChars } from "../SplitChars";
+
+const FACTS = [
+  { label: "Degree", value: "Bachelor of Science" },
+  { label: "University", value: "Daffodil International University" },
+  { label: "Graduated", value: "2019 · Dhaka" },
+];
+
+const YEARS = ["2015", "2016", "2017", "2018", "2019"];
 
 export function Education() {
   return (
@@ -6,43 +15,39 @@ export function Education() {
       <div data-reveal="0" className="kicker">
         04 — Education
       </div>
-      <div className="edu-grid">
-        <div data-reveal="0" data-spot="1" className="edu-main">
-          <div data-k="edubg" aria-hidden="true" className="edu-bg">
-            CSE
+      <h2 className="edu-title">
+        <SplitChars text="Computer Science" />
+        <SplitChars text="& Engineering" className="edu-title-outline" />
+      </h2>
+
+      <div className="edu-facts">
+        {FACTS.map((f, i) => (
+          <div key={f.label} data-reveal={i * 100} className="edu-fact">
+            <div className="edu-fact-label">{f.label}</div>
+            <div className="edu-fact-value">{f.value}</div>
           </div>
-          <div className="edu-top">
-            <span className="edu-icon">
-              <GraduationCap size="1em" />
-            </span>
-            <span className="tag tag-accent">Graduated 2019</span>
-          </div>
-          <div className="edu-body">
-            <div className="edu-degree">B.Sc. in Computer Science and Engineering</div>
-            <h3 className="edu-uni">Daffodil International University</h3>
-            <div className="edu-years tnum">
-              <span>2015</span>
-              <span className="edu-line">
-                <span data-k="edubar" className="edu-bar" />
-                <span className="edu-cap" />
-              </span>
-              <span className="end">2019</span>
-            </div>
-          </div>
-        </div>
-        <a href="https://diary.nazmulhussain.com" data-reveal="120" data-spot="1" data-cursor="Read" className="edu-side">
-          <div className="edu-side-top">
-            <span>Still learning</span>
-            <ArrowUpRight size={22} style={{ color: "var(--color-accent)" }} />
-          </div>
-          <div>
-            <Notebook size={34} style={{ display: "block", color: "var(--color-accent-300)" }} />
-            <div className="edu-side-title">A public diary</div>
-            <p>Learning notes and references, written in the open.</p>
-            <div className="edu-side-link">diary.nazmulhussain.com</div>
-          </div>
-        </a>
+        ))}
       </div>
+
+      {/* Scroll-linked ruler: the fill grows and lights each year as it passes. */}
+      <div data-k="edruler" data-reveal="0" className="edu-ruler" aria-hidden="true">
+        <div className="edu-ruler-track" />
+        <div data-k="edfill" className="edu-ruler-fill" />
+        <div className="edu-ticks tnum">
+          {YEARS.map((y) => (
+            <span key={y} data-tick="1" className="edu-tick">
+              <span className="edu-node" />
+              {y}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <a href="https://diary.nazmulhussain.com" data-reveal="0" data-cursor="Read" className="edu-link">
+        <span className="edu-link-kicker">Still learning</span>
+        Read my public diary
+        <ArrowUpRight size="1em" className="edu-link-arrow" />
+      </a>
     </section>
   );
 }

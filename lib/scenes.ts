@@ -155,21 +155,21 @@ export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: 
     });
   });
 
-  // ── Education: outlined "CSE" parallax, 2015 → 2019 bar draws in
-  const edu = q("sec-education");
-  if (edu) {
-    if (!reduced) {
-      gsap.fromTo(
-        q("edubg"),
-        { y: 60 },
-        { y: -60, ease: "none", scrollTrigger: { trigger: edu, start: "top bottom", end: "bottom top", scrub: true } },
-      );
-    }
-    gsap.fromTo(
-      q("edubar"),
-      { scaleX: 0 },
-      { scaleX: 1, ease: "none", scrollTrigger: { trigger: edu, start: "top+=100 75%", end: "top+=400 75%", scrub: true } },
-    );
+  // ── Education ruler: p = clamp((0.85H − top) / 0.45H); year i lights once i/4 ≤ p
+  const ruler = q("edruler"), rulerFill = q("edfill");
+  if (ruler && rulerFill) {
+    const ticks = qa("[data-tick]");
+    const set = (p: number) => {
+      rulerFill.style.transform = `scaleX(${p})`;
+      ticks.forEach((t, i) => t.classList.toggle("is-on", p > 0 && i / (ticks.length - 1) <= p + 0.001));
+    };
+    ScrollTrigger.create({
+      trigger: ruler,
+      start: "top 85%",
+      end: "top 40%",
+      onUpdate: (s) => set(s.progress),
+      onRefresh: (s) => set(s.progress),
+    });
   }
 
   // ── Footer name slides in as the contact band enters

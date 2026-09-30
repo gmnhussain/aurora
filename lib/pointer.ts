@@ -1,8 +1,8 @@
 import { clamp, gsap, prefersReducedMotion, scoped } from "./motion";
 
 /**
- * Custom cursor (dot + lerping ring with labels), magnetic buttons, cursor-lit
- * cards, the hero spotlight and portrait tilt, and the floating project preview.
+ * Custom cursor (dot + lerping ring with labels), magnetic buttons, the hero
+ * spotlight and portrait tilt, and the floating project preview.
  * Desktop with a fine pointer only. Everything is written straight to styles
  * from one ticker; no React state.
  */
@@ -17,7 +17,6 @@ export function attachPointer(root: HTMLElement) {
   let mx = -100, my = -100, rx = -100, ry = -100, px = -100, py = -100;
   let rs = 32, pvOn = false;
   let mag: HTMLElement | null = null;
-  let spot: HTMLElement | null = null;
 
   const onMove = (e: MouseEvent) => {
     mx = e.clientX;
@@ -54,18 +53,6 @@ export function attachPointer(root: HTMLElement) {
       pvOn = !!row;
       if (row) pimgs.forEach((im, i) => (im.style.opacity = String(i) === row.dataset.proj ? "1" : "0"));
     }
-
-    const sp = target?.closest<HTMLElement>("[data-spot]") ?? null;
-    if (sp) {
-      const r = sp.getBoundingClientRect();
-      sp.style.setProperty("--mx", `${e.clientX - r.left}px`);
-      sp.style.setProperty("--my", `${e.clientY - r.top}px`);
-    }
-    if (spot && spot !== sp) {
-      spot.style.setProperty("--mx", "-400px");
-      spot.style.setProperty("--my", "-400px");
-    }
-    spot = sp;
 
     const m = target?.closest<HTMLElement>("[data-magnet]") ?? null;
     if (m) {
@@ -108,9 +95,5 @@ export function attachPointer(root: HTMLElement) {
     document.documentElement.removeEventListener("mouseleave", onLeave);
     gsap.ticker.remove(tick);
     onLeave();
-    if (spot) {
-      spot.style.setProperty("--mx", "-400px");
-      spot.style.setProperty("--my", "-400px");
-    }
   };
 }
