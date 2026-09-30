@@ -105,51 +105,31 @@ export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: 
     });
   }
 
-  // ── Experience timeline: progress = how far the track has passed 62% of the viewport
-  const track = q("track"), tl = q("tl"), dot = q("tlDot");
-  const nodes = qa("[data-node]");
-  if (track && tl && dot) {
-    let trackH = 0;
-    let nodeOffs: number[] = [];
-    const set = (p: number) => {
-      tl.style.transform = `scaleY(${p})`;
-      dot.style.transform = `translateY(${p * trackH}px)`;
-      dot.style.opacity = p > 0 && p < 1 ? "1" : p >= 1 ? "0.6" : "0";
-      nodes.forEach((n, i) => n.classList.toggle("is-on", nodeOffs[i] <= p * trackH));
+  // ── Experience rows: accent progress p = clamp((0.8H − top) / (height + 0.3H)); the
+  // outlined start year drifts with it. Progress stays scroll-linked under reduced motion.
+  qa("[data-job]").forEach((row) => {
+    const prog = row.querySelector<HTMLElement>("[data-jprog]"), yr = row.querySelector<HTMLElement>("[data-yr]");
+    if (!prog || !yr) return;
+    const set = () => {
+      const r = row.getBoundingClientRect();
+      const p = clamp((H() * 0.8 - r.top) / (r.height + H() * 0.3));
+      prog.style.transform = `scaleX(${p})`;
+      if (!reduced) yr.style.transform = `translateX(${(0.5 - p) * 18}%)`;
     };
-    ScrollTrigger.create({
-      trigger: track,
-      start: "top 62%",
-      end: "bottom 62%",
-      onRefresh: (s) => {
-        trackH = track.offsetHeight;
-        const t0 = track.getBoundingClientRect().top;
-        nodeOffs = nodes.map((n) => n.getBoundingClientRect().top - t0);
-        set(s.progress);
-      },
-      onUpdate: (s) => set(s.progress),
-    });
-  }
-
-  // ── Role titles: text fill travels 0→100% as the title moves from 85% to 45% of the viewport
-  qa("[data-fill]").forEach((f) => {
-    gsap.fromTo(
-      f,
-      { "--p": "-8%" },
-      { "--p": "100%", ease: "none", scrollTrigger: { trigger: f, start: "top 85%", end: "top 45%", scrub: true } },
-    );
+    ScrollTrigger.create({ trigger: row, start: "top bottom", end: "bottom top", onUpdate: set, onRefresh: set });
   });
 
-  // ── Years counter 0 → 4
-  const yrs = q("yrs"), work = q("sec-work");
-  if (yrs && work) {
-    const set = (p: number) => (yrs.textContent = String(Math.round(p * 4)));
-    ScrollTrigger.create({
-      trigger: work,
-      start: "top 80%",
-      end: "top 30%",
-      onUpdate: (s) => set(s.progress),
-      onRefresh: (s) => set(s.progress),
+  // ── Letter reveal: once a [data-chars] block is 30% visible, its letters rise from their word masks
+  if (!reduced) {
+    qa("[data-chars]").forEach((el) => {
+      const chars = el.querySelectorAll("[data-ch]");
+      gsap.set(chars, { yPercent: 105 });
+      ScrollTrigger.create({
+        trigger: el,
+        start: () => `top+=${el.offsetHeight * 0.3} bottom`,
+        once: true,
+        onEnter: () => gsap.to(chars, { yPercent: 0, duration: 0.9, stagger: 0.022, ease: EASE.rise }),
+      });
     });
   }
 

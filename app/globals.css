@@ -694,155 +694,111 @@ html.has-cursor * {
 
 /* ─── Experience ──────────────────────────────────────────────────────── */
 .exp {
-  padding: clamp(56px, 8cqi, 104px) 0;
+  padding: clamp(72px, 10cqi, 128px) 0 clamp(40px, 6cqi, 72px);
 }
-.exp-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px clamp(40px, 6cqi, 96px);
-  margin-top: 32px;
-  align-items: flex-start;
-}
-.exp-side {
-  flex: 0 1 320px;
-  min-width: 0;
-  position: sticky;
-  top: 110px;
-}
-.exp-years {
-  display: flex;
-  align-items: flex-start;
-  font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: clamp(110px, 15cqi, 200px);
-  line-height: 0.8;
-  letter-spacing: -0.06em;
-  text-shadow: 0 0 70px color-mix(in srgb, var(--color-accent) 35%, transparent);
-}
-.exp-years .plus {
-  color: var(--color-accent);
-  font-size: 0.5em;
-  line-height: 1;
-}
-.exp-side-title {
-  font-size: clamp(20px, 2.2cqi, 26px);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  margin-top: 18px;
-}
-.exp-side p {
-  margin-top: 10px;
-  font-size: 15px;
-  line-height: 1.6;
-  max-width: 34ch;
-  color: color-mix(in srgb, var(--color-text) 70%, transparent);
-}
-.exp-stats {
-  display: flex;
-  gap: 28px;
-  margin-top: 24px;
-}
-.exp-stats .v {
-  font-size: 28px;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-}
-.exp-stats .l {
-  font-size: 13px;
-  margin-top: 4px;
-  color: color-mix(in srgb, var(--color-text) 60%, transparent);
-}
-.track {
-  --track-pad: clamp(28px, 4cqi, 48px);
-  flex: 1 1 460px;
-  min-width: 0;
-  position: relative;
-  padding-left: var(--track-pad);
-}
-.track-rail,
-.track-fill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-}
-.track-rail {
-  background: linear-gradient(to bottom, var(--color-neutral-800), var(--color-neutral-800) 80%, transparent);
-}
-.track-fill {
-  background: linear-gradient(to bottom, color-mix(in srgb, var(--color-accent) 10%, transparent), var(--color-accent));
-  transform-origin: 50% 0;
-  transform: scaleY(0);
-}
-.track-dot {
-  position: absolute;
-  left: -4px;
-  top: -4px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--color-accent-200);
-  box-shadow:
-    0 0 0 4px color-mix(in srgb, var(--color-accent) 25%, transparent),
-    0 0 22px var(--color-accent);
-  opacity: 0;
-}
-.role {
-  --role-pad: clamp(28px, 4cqi, 44px);
-  position: relative;
-  padding: var(--role-pad) 0 clamp(32px, 4.4cqi, 48px);
-}
-.role-rule {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 1px;
-  background: linear-gradient(to right, color-mix(in srgb, var(--color-text) 22%, transparent), transparent 85%);
-  transform-origin: 0 50%;
-  transform: scaleX(0);
-}
-.role-node {
-  position: absolute;
-  left: calc(-1 * var(--track-pad) - 5px);
-  top: calc(var(--role-pad) + 3px);
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  border: 1px solid var(--color-neutral-500);
-  background: var(--color-bg);
-  transition:
-    background 0.5s,
-    border-color 0.5s,
-    box-shadow 0.5s;
-}
-.role-node.is-on {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  box-shadow:
-    0 0 0 4px color-mix(in srgb, var(--color-accent) 20%, transparent),
-    0 0 16px var(--color-accent);
-}
-.role-head {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px 16px;
+.exp-range {
   font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--color-text) 60%, transparent);
 }
-.role-head.is-current,
-.role-current {
-  color: var(--color-accent-300);
+.exp h2 {
+  margin: 18px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(28px, 3.6cqi, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  max-width: 22ch;
 }
-.role-current {
+.jobs {
+  margin-top: clamp(40px, 6cqi, 72px);
+}
+.job {
+  position: relative;
+  overflow: hidden;
+}
+.job-rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-text) 20%, transparent),
+    color-mix(in srgb, var(--color-text) 20%, transparent) 70%,
+    transparent
+  );
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+.job-prog {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+.job-yr {
+  position: absolute;
+  right: -0.05em;
+  top: 50%;
+  translate: 0 -50%;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(120px, 20cqi, 280px);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+  pointer-events: none;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-accent) 14%, transparent);
+  transition: -webkit-text-stroke-color 0.6s;
+}
+.job.is-open .job-yr {
+  -webkit-text-stroke-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+}
+.job-head {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 24px;
+  align-items: end;
+  padding: clamp(24px, 3.6cqi, 40px) 0 clamp(14px, 2cqi, 20px);
+}
+.job-head:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+.job-main {
+  display: block;
+  min-width: 0;
+}
+.job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.job-n {
+  color: var(--color-accent);
+}
+.job-dates {
+  color: color-mix(in srgb, var(--color-text) 64%, transparent);
+}
+.job-now {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  color: var(--color-accent-300);
 }
 .pulse {
   width: 6px;
@@ -859,57 +815,127 @@ html.has-cursor * {
     box-shadow: 0 0 0 8px transparent;
   }
 }
-.role-title {
-  margin: clamp(16px, 2.4cqi, 24px) 0 0;
+.job-title {
+  margin-top: clamp(12px, 1.8cqi, 18px);
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: clamp(34px, 5.4cqi, 72px);
-  letter-spacing: -0.045em;
-  line-height: 1;
-  padding-bottom: 0.06em;
-  background: linear-gradient(
-    90deg,
-    var(--color-text) var(--p, 0%),
-    color-mix(in srgb, var(--color-text) 18%, transparent) calc(var(--p, 0%) + 10%)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-size: clamp(38px, 6.6cqi, 92px);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: color-mix(in srgb, var(--color-text) 42%, transparent);
+  transition: color 0.5s;
 }
-.role-company {
+.job.is-open .job-title {
+  color: var(--color-text);
+}
+.job-org {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 14px;
-  font-size: clamp(17px, 1.8cqi, 20px);
+  margin-top: 6px;
+  font-size: clamp(16px, 1.8cqi, 20px);
+  color: color-mix(in srgb, var(--color-text) 80%, transparent);
 }
-.dash {
-  width: 24px;
+.job-dash {
+  width: 20px;
   height: 1px;
   background: var(--color-accent);
+  transition: width 0.6s var(--ease-reveal);
 }
-.role p {
-  margin-top: 14px;
-  max-width: 54ch;
-  font-size: 15.5px;
-  line-height: 1.7;
-  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+.job.is-open .job-dash {
+  width: 48px;
 }
-.role-stack {
+.job-plus {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px 18px;
-  margin-top: 18px;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition:
+    border-color 0.4s,
+    background 0.4s,
+    rotate 0.6s var(--ease-reveal);
+}
+.job.is-open .job-plus {
+  rotate: 45deg;
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 16%, transparent);
+}
+.job-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.7s var(--ease-reveal);
+}
+.job.is-open .job-body {
+  grid-template-rows: 1fr;
+}
+.job-body > div {
+  overflow: hidden;
+  min-height: 0;
+}
+.job-body-in {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 20px clamp(24px, 5cqi, 72px);
+  padding: 6px 0 clamp(28px, 4cqi, 44px);
+  opacity: 0;
+  translate: 0 -12px;
+  transition:
+    opacity 0.6s 0.1s,
+    translate 0.7s 0.1s var(--ease-reveal);
+}
+.job.is-open .job-body-in {
+  opacity: 1;
+  translate: 0 0;
+}
+.job-body-in p {
+  max-width: 52ch;
+  font-size: 16px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-text) 74%, transparent);
+}
+.job-label {
   font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--color-text) 55%, transparent);
 }
-.role-stack span {
-  transition: color 0.25s;
+.job-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 10px;
+  font-size: 16px;
 }
-.role-stack span:hover {
-  color: var(--color-accent-300);
+.job-tags span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.job-tags span::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* Letter-split titles (SplitChars): each word masks its own letters. */
+.chars {
+  display: flex;
+  flex-wrap: wrap;
+}
+.chars-word {
+  display: inline-flex;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-right: var(--word-gap, 0.24em);
+}
+.chars [data-ch] {
+  display: inline-block;
 }
 
 /* ─── Education ───────────────────────────────────────────────────────── */
@@ -1594,10 +1620,6 @@ html.has-cursor .dot {
   .card-icon {
     display: none;
   }
-  .exp-side {
-    position: relative;
-    top: auto;
-  }
   .proj-img {
     display: block;
   }
@@ -1614,6 +1636,12 @@ html.has-cursor .dot {
   .hero-blob,
   .hero-ring {
     animation: none;
+  }
+  .job-body,
+  .job-body-in,
+  .job-plus,
+  .job-dash {
+    transition: none;
   }
   .about-text [data-w] {
     opacity: 1;

@@ -1,68 +1,99 @@
-import { ROLES } from "@/lib/content";
+"use client";
 
+import { useEffect, useRef, useState } from "react";
+import { Plus } from "@phosphor-icons/react/dist/ssr";
+import { ROLES } from "@/lib/content";
+import { ScrollTrigger, isPhone } from "@/lib/motion";
+import { SplitChars } from "../SplitChars";
+
+/** Accordion of roles: one open at a time, the first by default. Hover opens on desktop. */
 export function Experience() {
+  const [open, setOpen] = useState(0);
+  const mounted = useRef(false);
+
+  // Rows change height as they open, so re-measure every trigger below once the body settles.
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    const t = window.setTimeout(() => ScrollTrigger.refresh(), 750);
+    return () => window.clearTimeout(t);
+  }, [open]);
+
   return (
     <section data-k="sec-work" className="exp">
-      <div data-reveal="0" className="kicker">
-        03 — Experience
+      <div data-reveal="0" className="row-between">
+        <span className="kicker">03 — Experience</span>
+        <span className="exp-range tnum">2021 → Now</span>
       </div>
-      <div className="exp-grid">
-        <div className="exp-side">
-          <div className="exp-years" aria-label="4+ years">
-            <span data-k="yrs" className="tnum" aria-hidden="true">
-              0
-            </span>
-            <span className="plus" aria-hidden="true">
-              +
-            </span>
-          </div>
-          <div className="exp-side-title">Years shipping for the web</div>
-          <p>From owning products end to end to leading front-end today.</p>
-          <div className="exp-stats">
-            <div>
-              <div className="v">02</div>
-              <div className="l">Companies</div>
-            </div>
-            <div>
-              <div className="v">09</div>
-              <div className="l">Shipped works</div>
-            </div>
-          </div>
-        </div>
+      <h2 data-reveal="80">Four years, two teams, one habit: ship it well.</h2>
 
-        <div data-k="track" className="track">
-          <div className="track-rail" />
-          <div data-k="tl" className="track-fill" />
-          <div data-k="tlDot" className="track-dot" />
-          {ROLES.map((role) => (
-            <article key={role.title} className="role">
-              <div data-draw="1" className="role-rule" />
-              <span data-node="1" className="role-node" />
-              <div data-reveal="0" className={`role-head tnum${role.current ? " is-current" : ""}`}>
-                <span>{role.dates}</span>
-                {role.current && (
-                  <span className="role-current">
-                    <span className="pulse" />
-                    Current role
+      <div className="jobs">
+        {ROLES.map((role, i) => {
+          const isOpen = open === i;
+          const bodyId = `job-body-${i}`;
+          return (
+            <div
+              key={role.title}
+              data-job="1"
+              className={`job${isOpen ? " is-open" : ""}`}
+              onPointerEnter={(e) => e.pointerType === "mouse" && !isPhone() && setOpen(i)}
+            >
+              <div data-draw="1" className="job-rule" />
+              <div data-jprog="1" className="job-prog" />
+              <div data-yr="1" className="job-yr tnum" aria-hidden="true">
+                {role.dates.match(/\d{4}/)?.[0]}
+              </div>
+
+              <button
+                type="button"
+                className="job-head"
+                aria-expanded={isOpen}
+                aria-controls={bodyId}
+                onClick={() => setOpen((o) => (o === i ? -1 : i))}
+              >
+                <span className="job-main">
+                  <span className="job-meta tnum">
+                    <span className="job-n">0{i + 1}</span>
+                    <span className="job-dates">{role.dates}</span>
+                    {role.current && (
+                      <span className="job-now">
+                        <span className="pulse" />
+                        Now
+                      </span>
+                    )}
                   </span>
-                )}
+                  <SplitChars text={role.title} className="job-title" />
+                  <span className="job-org">
+                    <span className="job-dash" />
+                    {role.company}
+                  </span>
+                </span>
+                <span className="job-plus" aria-hidden="true">
+                  <Plus size="1em" />
+                </span>
+              </button>
+
+              <div id={bodyId} className="job-body" inert={!isOpen}>
+                <div>
+                  <div className="job-body-in">
+                    <p>{role.description}</p>
+                    <div>
+                      <div className="job-label">Stack</div>
+                      <div className="job-tags">
+                        {role.stack.map((s) => (
+                          <span key={s}>{s}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 data-fill="1" className="role-title">
-                {role.title}
-              </h3>
-              <div data-reveal="100" className="role-company">
-                <span className="dash" />
-                {role.company}
-              </div>
-              <p data-reveal="180">{role.description}</p>
-              <div data-reveal="260" className="role-stack">
-                {role.stack.map((s) => (
-                  <span key={s}>{s}</span>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          );
+        })}
+        <div data-draw="1" className="job-rule" />
       </div>
     </section>
   );
