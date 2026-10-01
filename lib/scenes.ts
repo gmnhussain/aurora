@@ -6,7 +6,6 @@ const docTop = (el: Element) => el.getBoundingClientRect().top + window.scrollY;
 /**
  * Every scroll-linked effect on the page. Call inside a gsap.context so a
  * single revert() tears it all down, including the returned cleanup.
- * Formulas mirror the prototype's update().
  */
 export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: number) => void) {
   const { q, qa } = scoped(root);
@@ -61,8 +60,8 @@ export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: 
   }
 
   // ── Aurora drift: each blob loops through three waypoints. Web Animations rather
-  // than CSS so one ease-in-out spans the whole loop, as in the prototype; CSS
-  // would ease (and stall) between every pair of keyframes.
+  // than CSS so one ease-in-out spans the whole loop; CSS would ease (and stall)
+  // between every pair of keyframes.
   const DRIFT: [string[], number][] = [
     [["0% 0%", "-12% 10%", "8% -6%"], 26000],
     [["0% 0%", "14% -8%", "-6% 12%"], 32000],
@@ -220,7 +219,7 @@ export function buildScenes(root: HTMLElement, reduced: boolean, onSection: (i: 
   };
 }
 
-/** Document scroll position that puts a section in view (as the prototype's go()). */
+/** Document scroll position that puts a section in view. */
 export function sectionTarget(root: HTMLElement, id: string) {
   if (id === "top") return 0;
   const el = scoped(root).q(`sec-${id}`);

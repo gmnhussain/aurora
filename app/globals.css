@@ -199,7 +199,7 @@ html.has-cursor * {
   position: relative;
   container-type: inline-size;
   overflow-x: clip;
-  /* The glow stays pinned to the viewport's top-right, as in the prototype. */
+  /* The glow stays pinned to the viewport's top-right. */
   background:
     radial-gradient(1100px 760px at 88% -180px, color-mix(in srgb, var(--color-accent-900) 85%, transparent), transparent 62%) fixed,
     var(--color-bg);

@@ -4,7 +4,7 @@ import { EASE, ScrollTrigger, clamp, gsap } from "./motion";
  * Scroll-driven parts of a case study: the hero image opening to full bleed,
  * the overview words lighting up, the lit feature / architecture lists with
  * their rolling counters, the pinned architecture pipeline and the pinned
- * horizontal gallery. One update per scroll frame, as in the prototype.
+ * horizontal gallery. One update per scroll frame.
  * Call inside a gsap.context.
  */
 export function caseScenes(root: HTMLElement, reduced: boolean) {

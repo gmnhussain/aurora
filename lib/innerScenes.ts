@@ -3,8 +3,7 @@ import { EASE, ScrollTrigger, clamp, gsap, initGsap, prefersReducedMotion } from
 
 /**
  * Reveal primitives for the inner pages (works, case study, contact, 404).
- * Same maths as the inner-pages prototype; call inside a gsap.context so a
- * single revert() tears everything down.
+ * Call inside a gsap.context so a single revert() tears everything down.
  */
 
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;

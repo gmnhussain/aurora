@@ -4,7 +4,7 @@ import { CustomEase } from "gsap/CustomEase";
 
 let ready = false;
 
-/** Standard easings from the handoff, as GSAP eases. */
+/** Named GSAP easings used across the site. */
 export const EASE = {
   /** cubic-bezier(.2,.7,.2,1): reveals */
   reveal: "reveal",
