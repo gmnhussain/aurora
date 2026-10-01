@@ -492,3 +492,802 @@
     transition-duration: 0.2s;
   }
 }
+
+/* ═══ Case study ═════════════════════════════════════════════════════════ */
+.ip-muted-55 {
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.ip-muted-60 {
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+}
+.ip-gutter {
+  padding: 0 var(--gutter);
+}
+/* Rolling counters: new text rises inside a mask. */
+.ip-roll {
+  display: inline-block;
+  overflow: hidden;
+}
+.ip-outline-num {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--color-text) 85%, transparent);
+}
+.ip-lit {
+  opacity: 0.18;
+  transition: opacity 0.45s;
+}
+.ip-tag-outline {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* 1. Hero */
+.ip-cs-hero {
+  position: relative;
+  padding: clamp(104px, 16vh, 160px) var(--gutter) clamp(32px, 5cqi, 56px);
+}
+.ip-cs-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.ip-shell .ip-back {
+  padding-left: 0;
+  gap: 10px;
+  color: var(--color-text);
+}
+.ip-shell .ip-allworks {
+  gap: 10px;
+  color: var(--color-accent);
+}
+.ip-cs-count {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 64%, transparent);
+}
+.ip-cs-h1 {
+  margin: clamp(20px, 3cqi, 36px) 0 0 -0.05em;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(64px, 14cqi, 200px);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  --word-gap: 0.22em;
+  overflow-wrap: anywhere;
+}
+.ip-cs-subrow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-top: clamp(16px, 2.4cqi, 28px);
+}
+.ip-cs-sub {
+  max-width: 26ch;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(22px, 2.8cqi, 36px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, var(--color-text) 82%, transparent);
+}
+.ip-shell .ip-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1px solid var(--color-accent);
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 15px;
+  transition:
+    background 0.3s,
+    transform 0.35s var(--ease-reveal);
+}
+.ip-shell .ip-live:hover {
+  background: color-mix(in srgb, var(--color-accent) 16%, transparent);
+}
+.ip-live-dot {
+  width: 7px;
+  height: 7px;
+}
+.ip-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 0 clamp(20px, 3cqi, 40px);
+  margin: clamp(32px, 5cqi, 56px) 0 0;
+}
+.ip-meta-item {
+  padding: 16px 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+}
+.ip-meta dt {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.ip-meta dd {
+  margin: 8px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* 2. Hero image */
+.ip-cs-imgsec {
+  padding: 0 0 clamp(64px, 10cqi, 128px);
+}
+.ip-heroclip {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: 92vh;
+  width: 100%;
+  overflow: hidden;
+  clip-path: inset(0 var(--gutter-vw) round 8px);
+  background: var(--color-surface);
+}
+.ip-heroclip img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* 3. Overview */
+.ip-ov {
+  position: relative;
+  height: 200vh;
+}
+.ip-ov-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(20px, 4vh, 40px);
+  padding: 72px var(--gutter) 32px;
+}
+.ip-ov-text {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(24px, 3.7cqi, 52px);
+  line-height: 1.2;
+  letter-spacing: -0.022em;
+  max-width: 28ch;
+  text-wrap: pretty;
+}
+.ip-ov-text [data-word] {
+  opacity: 0.16;
+}
+.ip-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* 4. Objective */
+.ip-obj {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px clamp(24px, 5cqi, 72px);
+  padding: clamp(56px, 8cqi, 104px) 0;
+}
+.ip-obj-label {
+  flex: 1 1 220px;
+}
+.ip-obj-text {
+  flex: 3 1 min(100%, 520px);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(22px, 2.6cqi, 34px);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  text-wrap: pretty;
+}
+
+/* 5. What I built */
+.ip-built {
+  padding: clamp(40px, 6cqi, 80px) 0;
+}
+.ip-tasks {
+  list-style: none;
+  margin: clamp(24px, 4cqi, 40px) 0 0;
+  padding: 0;
+}
+.ip-task-rule {
+  height: 1px;
+  background: linear-gradient(to right, color-mix(in srgb, var(--color-text) 18%, transparent) 70%, transparent);
+  transform-origin: 0 50%;
+}
+.ip-task-row {
+  display: grid;
+  grid-template-columns: clamp(40px, 8cqi, 120px) minmax(0, 1fr);
+  gap: 16px;
+  padding: clamp(18px, 2.4cqi, 26px) 0;
+  color: color-mix(in srgb, var(--color-text) 66%, transparent);
+  transition:
+    color 0.35s,
+    translate 0.5s var(--ease-reveal);
+}
+.ip-task-row:hover {
+  color: var(--color-text);
+  translate: 12px 0;
+}
+.ip-task-n {
+  font-size: 14px;
+  color: var(--color-accent);
+  padding-top: 0.35em;
+}
+.ip-task-text {
+  font-size: clamp(18px, 2cqi, 24px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  max-width: 52ch;
+}
+
+/* 6. Features */
+.ip-feat {
+  position: relative;
+  padding: clamp(56px, 8cqi, 104px) var(--gutter) 0;
+}
+.ip-feat-cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 clamp(32px, 6cqi, 96px);
+}
+.ip-feat-side {
+  flex: 1 1 280px;
+  min-width: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ip-feat-numrow {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+.ip-feat-num {
+  font-size: clamp(120px, 15cqi, 220px);
+  line-height: 0.92;
+  height: 0.92em;
+  margin-left: -0.05em;
+}
+.ip-feat-of {
+  font-size: clamp(18px, 2cqi, 24px);
+  letter-spacing: 0;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  margin: 0.5em 0 0 10px;
+}
+.ip-feat-title-mask {
+  display: block;
+  margin-top: 18px;
+}
+.ip-feat-title {
+  font-size: clamp(20px, 2.2cqi, 28px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.ip-feat-rail {
+  position: relative;
+  width: min(100%, 280px);
+  height: 1px;
+  margin-top: 22px;
+  background: var(--color-neutral-800);
+}
+.ip-feat-bar {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 0.6s var(--ease-reveal);
+}
+.ip-feat-label {
+  display: none;
+  flex: 1 1 100%;
+}
+.ip-feat-list {
+  flex: 2 1 min(100%, 520px);
+  min-width: 0;
+  list-style: none;
+  margin: 0;
+  padding: 34vh 0 30vh;
+}
+.ip-feat-item {
+  padding: clamp(28px, 8vh, 80px) 0;
+}
+.ip-feat-kicker {
+  display: flex;
+  gap: 14px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-300);
+}
+.ip-feat-text {
+  margin-top: 14px;
+  max-width: 24ch;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(26px, 3.3cqi, 48px);
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+  text-wrap: pretty;
+}
+
+/* 7. Architecture (desktop) */
+.ip-arch-desk {
+  position: relative;
+}
+.ip-arch-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(40px, 8vh, 88px);
+  padding: 80px var(--gutter) 48px;
+  overflow: hidden;
+}
+.ip-arch-head {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(24px, 4cqi, 56px);
+  min-height: clamp(140px, 22vh, 220px);
+}
+.ip-arch-num {
+  flex: none;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(110px, 14cqi, 200px);
+  line-height: 0.9;
+  height: 0.9em;
+  letter-spacing: -0.06em;
+  margin-left: -0.05em;
+}
+.ip-arch-copy {
+  min-width: 0;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+.ip-arch-title {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(36px, 4.8cqi, 68px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.ip-arch-desc {
+  margin-top: 14px;
+  max-width: 52ch;
+  font-size: clamp(16px, 1.5cqi, 18px);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-text) 74%, transparent);
+}
+.ip-pipe {
+  position: relative;
+  height: 96px;
+  margin: 0 6px;
+}
+.ip-pipe-track,
+.ip-pipe-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+}
+.ip-pipe-track {
+  background: color-mix(in srgb, var(--color-text) 14%, transparent);
+}
+.ip-pipe-fill {
+  background: linear-gradient(to right, color-mix(in srgb, var(--color-accent) 20%, transparent), var(--color-accent));
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+.ip-pkt {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2;
+  opacity: 0;
+}
+.ip-pkt-trail {
+  position: absolute;
+  right: 0;
+  top: -1px;
+  width: 120px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to right, transparent, var(--color-accent-200));
+  filter: blur(1px);
+}
+.ip-pkt-dot {
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent-100);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--color-accent) 30%, transparent),
+    0 0 24px var(--color-accent);
+}
+.ip-anode {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  white-space: nowrap;
+  translate: -50% 0;
+  color: color-mix(in srgb, var(--color-text) 40%, transparent);
+  transition: color 0.5s;
+}
+.ip-anode[data-pos="first"] {
+  translate: 0 0;
+  align-items: flex-start;
+  text-align: left;
+}
+.ip-anode[data-pos="last"] {
+  translate: -100% 0;
+  align-items: flex-end;
+  text-align: right;
+}
+.ip-anode-title {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.ip-anode-sub {
+  font-size: 13px;
+  opacity: 0.8;
+}
+.ip-adot {
+  width: 11px;
+  height: 11px;
+  margin: 0 -5px;
+  border-radius: 50%;
+  border: 1px solid var(--color-neutral-500);
+  background: var(--color-bg);
+  transition:
+    background 0.4s,
+    border-color 0.4s,
+    box-shadow 0.4s;
+}
+.ip-anode[data-on] {
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+.ip-anode[data-on] .ip-adot {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
+}
+.ip-anode[data-cur] {
+  color: var(--color-text);
+}
+.ip-anode[data-cur] .ip-adot {
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--color-accent) 25%, transparent),
+    0 0 18px var(--color-accent);
+}
+
+/* 7. Architecture (phone / reduced): vertical timeline */
+.ip-arch-phone {
+  display: none;
+  padding: clamp(56px, 8cqi, 104px) var(--gutter) 0;
+}
+.ip-tl {
+  position: relative;
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0 0 0 28px;
+}
+.ip-tl::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: color-mix(in srgb, var(--color-text) 14%, transparent);
+}
+.ip-tl-item {
+  position: relative;
+  padding: 0 0 32px;
+}
+.ip-tl-dot {
+  position: absolute;
+  left: -28px;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent);
+}
+.ip-tl-k {
+  font-size: 12px;
+  color: var(--color-accent);
+}
+.ip-tl-title {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: -0.03em;
+  margin-top: 6px;
+}
+.ip-tl-desc {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-text) 74%, transparent);
+}
+
+/* 8. Screens (desktop): pinned horizontal gallery */
+.ip-gal-desk {
+  position: relative;
+}
+.ip-gal-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(20px, 3vh, 32px);
+}
+.ip-gal-head {
+  padding: 0 var(--gutter);
+}
+.ip-gal-cur {
+  color: var(--color-text);
+}
+.ip-gal-track {
+  display: flex;
+  gap: clamp(16px, 2cqi, 28px);
+  padding: 0 var(--gutter);
+  width: max-content;
+  will-change: transform;
+}
+.ip-gal-fig {
+  margin: 0;
+  flex: none;
+  width: min(64cqi, 880px);
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  box-shadow: var(--shadow-lg);
+}
+.ip-gal-fig img,
+.ip-gal-sfig img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ip-gal-rail {
+  margin: 0 var(--gutter);
+  height: 1px;
+  background: var(--color-neutral-800);
+}
+.ip-gal-bar {
+  height: 1px;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+/* Screens (phone / reduced): vertical stack */
+.ip-gal-phone {
+  display: none;
+  padding: clamp(40px, 6cqi, 80px) var(--gutter);
+}
+.ip-gal-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+.ip-gal-sfig {
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+}
+
+/* 9. Prev row + next project */
+.ip-prevrow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding: clamp(48px, 6cqi, 80px) var(--gutter) 20px;
+}
+.ip-shell .ip-next {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(80px, 12cqi, 160px) var(--gutter);
+  border-top: 1px solid var(--color-divider);
+  color: var(--color-text);
+  text-decoration: none;
+}
+.ip-next:focus-visible {
+  outline-offset: -4px;
+}
+.ip-next-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1s var(--ease-wipe);
+}
+.ip-next-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.15;
+  transition: scale 1.4s var(--ease-reveal);
+}
+.ip-next-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--color-bg) 92%, transparent) 30%,
+    color-mix(in srgb, var(--color-accent-900) 70%, transparent)
+  );
+}
+.ip-next-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-top: clamp(16px, 2cqi, 24px);
+}
+.ip-next-main {
+  min-width: 0;
+}
+.ip-next-title {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(56px, 12cqi, 176px);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  margin-left: -0.05em;
+  --word-gap: 0.22em;
+  transition: translate 0.8s var(--ease-reveal);
+}
+.ip-next-sub {
+  margin-top: 12px;
+  font-size: clamp(16px, 1.8cqi, 20px);
+  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+}
+.ip-next-arrow {
+  flex: none;
+  width: clamp(64px, 8cqi, 104px);
+  height: clamp(64px, 8cqi, 104px);
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(22px, 2.6cqi, 32px);
+  rotate: -45deg;
+  transition:
+    rotate 0.7s var(--ease-reveal),
+    background 0.4s;
+}
+@media (hover: hover) and (min-width: 721px) {
+  .ip-next:is(:hover, :focus-visible) .ip-next-bg {
+    clip-path: inset(0 0 0 0);
+  }
+  .ip-next:is(:hover, :focus-visible) .ip-next-bg img {
+    scale: 1;
+  }
+  .ip-next:is(:hover, :focus-visible) .ip-next-title {
+    translate: 24px 0;
+  }
+  .ip-next:is(:hover, :focus-visible) .ip-next-arrow {
+    rotate: 0deg;
+    background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+}
+
+/* Phone: no sticky column, vertical timeline and stack; next image always shown. */
+@media (max-width: 720px) {
+  .ip-feat-side {
+    display: none;
+  }
+  .ip-feat-label {
+    display: block;
+  }
+  .ip-feat-list {
+    padding: 8px 0 0;
+  }
+  .ip-arch-desk,
+  .ip-gal-desk {
+    display: none;
+  }
+  .ip-arch-phone,
+  .ip-gal-phone {
+    display: block;
+  }
+  .ip-next-bg {
+    clip-path: inset(0 0 0 0);
+  }
+  .ip-next-bg img {
+    scale: 1;
+  }
+}
+
+/* Reduced motion: no pinning or scroll effects; everything readable at rest. */
+@media (prefers-reduced-motion: reduce) {
+  .ip-ov {
+    height: auto;
+  }
+  .ip-ov-stage {
+    position: static;
+    height: auto;
+    padding-block: clamp(56px, 8cqi, 104px);
+  }
+  .ip-ov-text [data-word],
+  .ip-lit {
+    opacity: 1;
+  }
+  .ip-feat-side,
+  .ip-arch-desk,
+  .ip-gal-desk {
+    display: none;
+  }
+  .ip-feat-label,
+  .ip-arch-phone,
+  .ip-gal-phone {
+    display: block;
+  }
+  .ip-feat-list {
+    padding: 8px 0 0;
+  }
+  .ip-task-row,
+  .ip-next-bg,
+  .ip-next-bg img,
+  .ip-next-title,
+  .ip-next-arrow {
+    transition-duration: 0.2s;
+  }
+}
