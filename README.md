@@ -2,7 +2,7 @@
 
 Aurora — a dark, motion-led personal portfolio for developers. Built with Next.js, React, TypeScript, and GSAP scroll scenes.
 
-Live: [nazmulhussain.com](https://nazmulhussain.com)
+Live: [nazmul-aurora.vercel.app](https://nazmul-aurora.vercel.app)
 
 ## Stack
 
