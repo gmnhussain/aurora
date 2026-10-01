@@ -29,3 +29,11 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build`     | Create a production build  |
 | `npm run start`     | Serve the production build |
 | `npm run typecheck` | Run TypeScript checks      |
+
+## License
+
+Copyright (c) 2026 G. M. Nazmul Hussain. All rights reserved.
+
+Source is publicly available for viewing and learning. Reuse, redistribution, or deployment of this project as another personal or commercial website is not permitted without permission.
+
+See [LICENSE](./LICENSE) for full terms.
