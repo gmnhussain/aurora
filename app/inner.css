@@ -1819,3 +1819,68 @@
     transition-duration: 0.2s;
   }
 }
+
+/* ═══ 404 ════════════════════════════════════════════════════════════════ */
+.ip-nf {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: 100svh;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 96px var(--gutter) 56px;
+}
+/* The home halo (fill + two rings), centred at 58% / 50%. */
+.ip-nf-halo {
+  position: absolute;
+  left: 58%;
+  top: 50%;
+  width: clamp(320px, 46cqi, 640px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  z-index: -1;
+  pointer-events: none;
+}
+.ip-nf-digits {
+  display: flex;
+  align-items: flex-end;
+  margin: 8px 0 0 -0.06em;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(160px, 34cqi, 460px);
+  line-height: 0.82;
+  letter-spacing: -0.07em;
+}
+.ip-nf-digits [data-dig] {
+  display: inline-block;
+  transition: translate 0.8s var(--ease-reveal);
+}
+.ip-nf-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--color-text) 85%, transparent);
+  text-shadow: 0 0 60px color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+.ip-nf-line {
+  margin-top: clamp(20px, 3cqi, 32px);
+  max-width: 22ch;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(24px, 3cqi, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+.ip-nf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+.ip-shell .ip-nf-btn {
+  min-height: 48px;
+  gap: 10px;
+  padding-inline: 14px;
+  color: var(--color-accent);
+}
