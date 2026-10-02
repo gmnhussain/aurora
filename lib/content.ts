@@ -78,15 +78,13 @@ export const ROLES: {
   },
 ];
 
-const IMG = "https://nazmulhussain.com/img/projects";
-
 export const PROJECTS: { title: string; meta: string; href: string; img: string }[] = [
-  { title: "SmartGate", meta: "Multi-office attendance sync for DGHS", href: "/works/smartgate", img: `${IMG}/smartgate/smartgate-02.jpg` },
-  { title: "Prixise", meta: "Price comparison & affiliate platform", href: "/works/price-comparison", img: `${IMG}/price-comparison/price-comparison-01.jpg` },
-  { title: "Social Commerce", meta: "SaaS for Bangladeshi social sellers", href: "/works/social-commerce", img: `${IMG}/social-commerce/social-commerce-01.jpg` },
-  { title: "Gatewise", meta: "Access control console for Dahua devices", href: "/works/gatewise", img: `${IMG}/gatewise/gatewise-02.jpg` },
-  { title: "Veloura", meta: "Headless e-commerce platform on Vendure", href: "/works/veloura", img: `${IMG}/veloura/veloura-02.jpg` },
-  { title: "PulseHR", meta: "Multi-tenant workforce management", href: "/works/pulse-hr", img: `${IMG}/pulsehr/pulsehr-01.jpg` },
+  { title: "SmartGate", meta: "Multi-office attendance sync for DGHS", href: "/works/smartgate", img: "/img/projects/smartgate/overview-dark-16x10.webp" },
+  { title: "Prixise", meta: "Price comparison & affiliate platform", href: "/works/price-comparison", img: "/img/projects/price-comparison/home-16x10.webp" },
+  { title: "Social Commerce", meta: "SaaS for Bangladeshi social sellers", href: "/works/social-commerce", img: "/img/projects/social-commerce/inbox-to-order-16x10.webp" },
+  { title: "Gatewise", meta: "Access control console for Dahua devices", href: "/works/gatewise", img: "/img/projects/gatewise/overview-16x10.webp" },
+  { title: "Veloura", meta: "Headless e-commerce platform on Vendure", href: "/works/veloura", img: "/img/projects/veloura/hero-womenswear-16x10.webp" },
+  { title: "PulseHR", meta: "Multi-tenant workforce management", href: "/works/pulse-hr", img: "/img/projects/pulse-hr/live-attendance-16x10.webp" },
 ];
 
 export type ServiceIcon = "browsers" | "database" | "mobile" | "figma";
