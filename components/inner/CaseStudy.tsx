@@ -72,7 +72,7 @@ export function CaseStudy({ slug }: { slug: string }) {
       {/* 2. Hero image: opens out to full bleed as it scrolls in */}
       <section className="ip-cs-imgsec">
         <div data-k="heroclip" className="ip-heroclip">
-          <img data-k="heroimg" src={work.img} alt={work.title} />
+          <img data-k="heroimg" src={work.img.replace("-4x3.webp", "-16x10.webp")} alt={work.title} />
         </div>
       </section>
 

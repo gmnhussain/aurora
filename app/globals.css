@@ -1541,9 +1541,9 @@ html.has-cursor .dot {
   z-index: 30;
   pointer-events: none;
   opacity: 0;
-  border-radius: var(--radius-md);
+  /* border-radius: var(--radius-md); */
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  /* box-shadow: var(--shadow-lg); */
   background: var(--color-surface);
   transition: opacity 0.3s;
 }

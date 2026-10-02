@@ -289,9 +289,9 @@
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  /* border-radius: var(--radius-lg); */
   background: var(--color-surface);
-  border: 1px solid var(--color-divider);
+  /* border: 1px solid var(--color-divider); */
 }
 .ip-card-par {
   position: absolute;
@@ -304,7 +304,7 @@
 .ip-card-par img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: scale 1.2s var(--ease-reveal);
 }
 .ip-card-ov {
@@ -638,7 +638,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   will-change: transform;
 }
 
@@ -1082,11 +1082,11 @@
   flex: none;
   width: min(64cqi, 880px);
   aspect-ratio: 16 / 10;
-  border-radius: var(--radius-lg);
+  /* border-radius: var(--radius-lg); */
   overflow: hidden;
   background: var(--color-surface);
-  border: 1px solid var(--color-divider);
-  box-shadow: var(--shadow-lg);
+  /* border: 1px solid var(--color-divider); */
+  /* box-shadow: var(--shadow-lg); */
 }
 .ip-gal-fig img,
 .ip-gal-sfig img {
@@ -1120,10 +1120,10 @@
 .ip-gal-sfig {
   margin: 0;
   aspect-ratio: 16 / 10;
-  border-radius: var(--radius-md);
+  /* border-radius: var(--radius-md); */
   overflow: hidden;
   background: var(--color-surface);
-  border: 1px solid var(--color-divider);
+  /* border: 1px solid var(--color-divider); */
 }
 
 /* 9. Prev row + next project */
